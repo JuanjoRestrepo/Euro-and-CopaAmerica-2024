@@ -1,54 +1,111 @@
+import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-import pandas as pd
-import time
 
-#path = 'C:\Users\Juan Jose Restrepo\Desktop\WC 2022\chromedriver-win64\chromedriver.exe'
-path = 'chromedriver-win64\chromedriver.exe'
-service = Service(executable_path=path)
-driver = webdriver.Chrome(service=service)
+options = webdriver.ChromeOptions()
+options.add_argument('--headless')
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
+driver = webdriver.Chrome(options=options)
 
-def getMissingData(year):
-    web = f'https://en.wikipedia.org/wiki/{year}_FIFA_World_Cup'
-    print(f'\nGetting the Matches of WC {year}')
+def get_matches_1959():
+    print('\nGetting the Matches of Copa America 1959')
+    
+    web1 = 'https://es.wikipedia.org/wiki/Campeonato_Sudamericano_1959_(Argentina)'
+    web2 = 'https://es.wikipedia.org/wiki/Campeonato_Sudamericano_1959_(Ecuador)'
 
-    # NODO PADRE: CUBRE LOCAL Y VISITANTE: <tr itemprop="name"> <th class="fhome" itemprop="homeTeam" itemscope="" itemtype="http://schema.org/SportsTeam"><span itemprop="name"><a href="/wiki/Italy_national_football_team" title="Italy national football team">Italy</a><span class="flagicon">&nbsp;<span class="mw-image-border" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/23px-Flag_of_Italy.svg.png" decoding="async" width="23" height="15" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/35px-Flag_of_Italy.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/45px-Flag_of_Italy.svg.png 2x" data-file-width="1500" data-file-height="1000"></span></span></span></span></th><th class="fscore">0–0</th><th class="faway" itemprop="awayTeam" itemscope="" itemtype="http://schema.org/SportsTeam"><span itemprop="name"><span style="white-space:nowrap"><span class="flagicon"><span class="mw-image-border" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/23px-Flag_of_Poland.svg.png" decoding="async" width="23" height="14" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/35px-Flag_of_Poland.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/1/12/Flag_of_Poland.svg/46px-Flag_of_Poland.svg.png 2x" data-file-width="1280" data-file-height="800"></span></span>&nbsp;</span><a href="/wiki/Poland_national_football_team" title="Poland national football team">Poland</a></span></span></th></tr>
-    # <th class="fhome" itemprop="homeTeam" itemscope="" itemtype="http://schema.org/SportsTeam"><span itemprop="name"><a href="/wiki/Italy_national_football_team" title="Italy national football team">Italy</a><span class="flagicon">&nbsp;<span class="mw-image-border" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/23px-Flag_of_Italy.svg.png" decoding="async" width="23" height="15" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/35px-Flag_of_Italy.svg.png 1.5x, //upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/45px-Flag_of_Italy.svg.png 2x" data-file-width="1500" data-file-height="1000"></span></span></span></span></th>
+    # Extract data from Argentina page
+    driver.get(web1)
+    matches_argentina = driver.find_elements(by='xpath', value='//td[@align="right"]/..| //td[@style="text-align:right;"]/..')
 
-     #//th[@class="fhome"]/.. <th class="fhome" itemprop="homeTeam" itemscope="" itemtype="http://schema.org/SportsTeam"><span itemprop="name"><a href="/wiki/Brazil_national_football_team" title="Brazil national football team">Brazil</a><span class="flagicon">&nbsp;<span class="mw-image-border" typeof="mw:File"><span><img alt="" src="//upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Flag_of_Brazil_%281968%E2%80%931992%29.svg/22px-Flag_of_Brazil_%281968%E2%80%931992%29.svg.png" decoding="async" width="22" height="15" class="mw-file-element" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Flag_of_Brazil_%281968%E2%80%931992%29.svg/33px-Flag_of_Brazil_%281968%E2%80%931992%29.svg.png 1.5x, //upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Flag_of_Brazil_%281968%E2%80%931992%29.svg/43px-Flag_of_Brazil_%281968%E2%80%931992%29.svg.png 2x" data-file-width="720" data-file-height="504"></span></span></span></span></th>
+    home_argentina = []
+    score_argentina = []
+    away_argentina = []
 
-    # Find all rows containing match information
-    # obtenemos los partidos en la pagina web
+    for game in matches_argentina:
+        cells = game.find_elements(by='xpath', value='./td')
+        if len(cells) >= 4:
+            home_argentina.append(cells[1].text.strip())
+            score_argentina.append(cells[2].text.strip())
+            away_argentina.append(cells[3].text.strip())
+
+    dict_football_argentina = {'home': home_argentina, 'score': score_argentina, 'away': away_argentina}
+    df_football_argentina = pd.DataFrame(dict_football_argentina)
+    df_football_argentina['year'] = 1959
+
+    # Extract data from Ecuador page
+    driver.get(web2)
+    matches_ecuador = driver.find_elements(by='xpath', value='//td[@align="right"]/..| //td[@style="text-align:right;"]/..')
+
+    home_ecuador = []
+    score_ecuador = []
+    away_ecuador = []
+
+    for game in matches_ecuador:
+        cells = game.find_elements(by='xpath', value='./td')
+        if len(cells) >= 4:
+            home_ecuador.append(cells[1].text.strip())
+            score_ecuador.append(cells[2].text.strip())
+            away_ecuador.append(cells[3].text.strip())
+
+    dict_football_ecuador = {'home': home_ecuador, 'score': score_ecuador, 'away': away_ecuador}
+    df_football_ecuador = pd.DataFrame(dict_football_ecuador)
+    df_football_ecuador['year'] = 1959
+
+    # Combine data from Argentina and Ecuador
+    df_1959 = pd.concat([df_football_argentina, df_football_ecuador], ignore_index=True)
+    return df_1959
+
+def get_matches(year):
+    print(f'\nGetting the Matches of Copa America {year}')
+
+    if year >= 1975:
+        web = f'https://es.wikipedia.org/wiki/Copa_Am%C3%A9rica_{year}'
+    elif year <= 1967:
+        web = f'https://es.wikipedia.org/wiki/Campeonato_Sudamericano_{year}'
+    else:
+        return pd.DataFrame()  # Return an empty DataFrame if the year is not valid
+
     driver.get(web)
     matches = driver.find_elements(by='xpath', value='//td[@align="right"]/.. | //td[@style="text-align:right;"]/..')
 
-    # guardamos los datos de los partidos en las listas
     home = []
     score = []
     away = []
 
-    # Recorremos los partidos guardados para separarlos en local, visitante y resultado
-    for match in matches:
-        home.append(match.find_element(by='xpath', value='./td[1]').text)
-        score.append(match.find_element(by='xpath', value='./td[2]').text)
-        away.append(match.find_element(by='xpath', value='./td[3]').text)
+    for game in matches:
+        home.append(game.find_element(by='xpath', value='./td[2]').text)
+        score.append(game.find_element(by='xpath', value='./td[3]').text)
+        away.append(game.find_element(by='xpath', value='./td[4]').text)
 
-    # Creamos un DataFrame a partir de las listas
-    data = {'Home': home, 'Score': score, 'Away': away}
-    df_football = pd.DataFrame(data)
+    dict_football = {'home': home, 'score': score, 'away': away}
+    df_football = pd.DataFrame(dict_football)
     df_football['year'] = year
-    time.sleep(2)
 
     return df_football
 
+# Extract data for all Copa America years
+years = [1916, 1917, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926,
+         1927, 1929, 1935, 1937, 1939, 1941, 1942, 1945, 1946, 1947,
+         1949, 1953, 1955, 1956, 1957, 1959, 1963, 1967, 1975, 1979,
+         1983, 1983, 1987, 1989, 1991, 1993, 1995, 1997, 1999, 2001,
+         2004, 2007, 2011, 2015, 2016, 2019, 2021]
 
-df_fifa = getMissingData(1990)
+CopaAmerica = []
+
+# Iterate through the years and call the appropriate function
+for year in years:
+    if year == 1959:
+        df_1959 = get_matches_1959()
+        print(df_1959.head())  # Debugging: print the first few rows of the 1959 dataframe
+        CopaAmerica.append(df_1959)
+    else:
+        df_year = get_matches(year)
+        CopaAmerica.append(df_year)
+
 driver.quit()
-df_fifa.to_csv('test2_1990.csv', index=False)
 
-print('Web Scraping Done!')
-
-
-
-
-    #matches = driver.find_elements(by='xpath', value='//th[@class="fhome"]/.. | //td[@align="right"]/.. | //td[@style="text-align:right;"]/..')
+# Concatenate all DataFrames into one final DataFrame
+df_CopaAmerica = pd.concat(CopaAmerica, ignore_index=True)
+print(df_CopaAmerica[df_CopaAmerica['year'] == 1959])  # Debugging: print the rows for the year 1959
+df_CopaAmerica.to_csv('Copa_America_Historical_Data.csv', index=False)
