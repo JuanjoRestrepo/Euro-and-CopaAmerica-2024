@@ -1,0 +1,33 @@
+home,score,away,year
+Argentina ,Match 1, Canada,2024
+Peru ,Match 2, Chile,2024
+Peru ,Match 10, Canada,2024
+Chile ,Match 9, Argentina,2024
+Argentina ,Match 17, Peru,2024
+Canada ,Match 18, Chile,2024
+Ecuador ,Match 4, Venezuela,2024
+Mexico ,Match 3, Jamaica,2024
+Ecuador ,Match 12, Jamaica,2024
+Venezuela ,Match 11, Mexico,2024
+Mexico ,Match 19, Ecuador,2024
+Jamaica ,Match 20, Venezuela,2024
+United States ,Match 5, Bolivia,2024
+Uruguay ,Match 6, Panama,2024
+Panama ,Match 13, United States,2024
+Uruguay ,Match 14, Bolivia,2024
+United States ,Match 21, Uruguay,2024
+Bolivia ,Match 22, Panama,2024
+Colombia ,Match 8, Paraguay,2024
+Brazil ,Match 7, Costa Rica,2024
+Colombia ,Match 16, Costa Rica,2024
+Paraguay ,Match 15, Brazil,2024
+Brazil ,Match 23, Colombia,2024
+Costa Rica ,Match 24, Paraguay,2024
+Winner Group A,Match 25,Runner-up Group B,2024
+Winner Group B,Match 26,Runner-up Group A,2024
+Winner Group C,Match 27,Runner-up Group D,2024
+Winner Group D,Match 28,Runner-up Group C,2024
+Winner Match 25,Match 29,Winner Match 26,2024
+Winner Match 27,Match 30,Winner Match 28,2024
+Loser Match 29,Match 31,Loser Match 30,2024
+Winner Match 29,Match 32,Winner Match 30,2024
