@@ -57,14 +57,18 @@ def get_matches_1959():
     return df_1959
 
 def get_matches(year):
-    print(f'\nGetting the Matches of Copa America {year}')
+    print(f'\nGetting the Matches of EURO {year}')
+    
+    #https://en.wikipedia.org/wiki/1964_European_Nations%27_Cup
 
-    if year >= 1975:
-        web = f'https://es.wikipedia.org/wiki/Copa_Am%C3%A9rica_{year}'
-    elif year <= 1967:
-        web = f'https://es.wikipedia.org/wiki/Campeonato_Sudamericano_{year}'
+    #https://en.wikipedia.org/wiki/UEFA_Euro_1968
+    #https://en.wikipedia.org/wiki/UEFA_Euro_1972
+    #https://en.wikipedia.org/wiki/UEFA_Euro_2024
+
+    if year <= 1964:
+        web = f'https://en.wikipedia.org/wiki/{year}_European_Nations%27_Cup'
     else:
-        return pd.DataFrame()  # Return an empty DataFrame if the year is not valid
+        web = f'https://en.wikipedia.org/wiki/UEFA_Euro_{year}'
 
     driver.get(web)
     matches = driver.find_elements(by='xpath', value='//td[@align="right"]/.. | //td[@style="text-align:right;"]/..')
@@ -85,11 +89,8 @@ def get_matches(year):
     return df_football
 
 # Extract data for all Copa America years
-years = [1916, 1917, 1919, 1920, 1921, 1922, 1923, 1924, 1925, 1926,
-         1927, 1929, 1935, 1937, 1939, 1941, 1942, 1945, 1946, 1947,
-         1949, 1953, 1955, 1956, 1957, 1959, 1963, 1967, 1975, 1979,
-         1983, 1983, 1987, 1989, 1991, 1993, 1995, 1997, 1999, 2001,
-         2004, 2007, 2011, 2015, 2016, 2019, 2021]
+years = [1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 
+         1996, 2000, 2004, 2008, 2012, 2016, 2020, 2024]
 
 CopaAmerica = []
 
@@ -108,4 +109,4 @@ driver.quit()
 # Concatenate all DataFrames into one final DataFrame
 df_CopaAmerica = pd.concat(CopaAmerica, ignore_index=True)
 print(df_CopaAmerica[df_CopaAmerica['year'] == 1959])  # Debugging: print the rows for the year 1959
-df_CopaAmerica.to_csv('Copa_America_Historical_Data.csv', index=False)
+df_CopaAmerica.to_csv('EURO_Historical_Data.csv', index=False)

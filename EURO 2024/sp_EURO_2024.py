@@ -8,7 +8,7 @@ years = [2024]
 
 def get_matches(year):
   if year == '2024':
-    web =  f'https://en.wikipedia.org/wiki/{year}_Copa_Am%C3%A9rica'
+    web =  f'https://en.wikipedia.org/wiki/UEFA_Euro_2024'
 
   response = requests.get(web)
   content = response.text #contenido html de la pagina
@@ -37,4 +37,4 @@ def get_matches(year):
 # Data del mundial Qatar 2022
 df_fixture = get_matches('2024')
 df_fixture = df_fixture
-df_fixture.to_csv('Copa_America_Fixture.csv', index=False)
+df_fixture.to_csv('Euro_Fixture.csv', index=False)
