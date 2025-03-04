@@ -1,4 +1,4 @@
-# Euro and Copa América 2024 Analysis
+# Football Analysis & Predictor
 
 ![Football Predictor](footballBall.jpg "Football Predictor")
 
@@ -17,7 +17,7 @@ Welcome to the **Euro and Copa América 2024 Analysis** repository. This project
 
 ## Project Overview
 
-This project was created to explore and analyze data related to the UEFA Euro and Copa América 2024 tournaments. The analysis covers:
+This project was created to explore and analyze data related to the World Cuo 2022, UEFA Euro and Copa América 2024 tournaments. The analysis covers:
 
 - **Data Collection:** Scraping and aggregating data from reliable sources.
 - **Data Cleaning and Preparation:** Ensuring data quality for accurate analysis.
@@ -34,11 +34,11 @@ This project was created to explore and analyze data related to the UEFA Euro an
 
 ## Technologies Used
 
-- **Programming Languages:** Python, R
-- **Data Analysis & Visualization:** Pandas, ggplot2, Plotly, Matplotlib
+- **Programming Languages:** Python
+- **Data Analysis & Visualization:** Pandas, Matplotlib
 - **Web Scraping:** BeautifulSoup, Selenium (if applicable)
 - **Statistical Modeling:** Scikit-learn, Statsmodels
-- **Other Tools:** Jupyter Notebooks, R Markdown
+- **Other Tools:** Jupyter Notebooks, Requests, Pickle
 
 ## Installation
 
@@ -60,13 +60,6 @@ source venv/bin/activate  # On Windows use: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Install R Packages (if using R scripts)
-Open R or RStudio and install the necessary packages using:
-
-```R
-install.packages(c("ggplot2", "dplyr", "plotly", "rmarkdown"))
-```
-
 ## Usage
 After installing the dependencies, you can run the analyses and generate reports:
 
@@ -79,8 +72,6 @@ python main_analysis.py
 ```bash
 jupyter notebook
 ```
-
-- **R Markdown Reports:** Open the .Rmd files in RStudio and knit them to produce HTML/PDF reports.
 
 # Data Sources
 The data used in this project comes from various public and proprietary sources. Please refer to the data/ directory for raw data files and the docs/ directory for data source documentation.
