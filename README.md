@@ -1,4 +1,4 @@
-Euro and Copa América 2024 Analysis
+# Euro and Copa América 2024 Analysis
 
 ![Football Predictor](footballBall.jpg "Football Predictor")
 
